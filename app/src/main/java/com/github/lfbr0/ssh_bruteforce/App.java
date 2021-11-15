@@ -54,6 +54,7 @@ public class App {
             else
                 System.out.println( "NO PASSWORD FOUND IN DICTIONARY" );
 
+            return;
         }
         catch (ParseException e) {
             System.out.println("ERROR PARSING ARGUMENTS PASSED");
