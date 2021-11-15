@@ -29,5 +29,16 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'ssh.bruteforce.App'
+    mainClass = 'com.github.lfbr0.ssh_bruteforce.App'
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.github.lfbr0.ssh_bruteforce.App'
+    }
+    archiveClassifier = "fatJar"
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
 }
