@@ -35,7 +35,7 @@ Using the application we can bruteforce with dictionary attack:
 
 ## TODO
 To be done:
-- [ ] Multithreaded to run quicker
+- [x] Multithreaded to run quicker (done, but has to be severely improved...)
 - [ ] Variable timeout
 - [ ] Dictionary attack on username
 - [ ] Attack several ports for hidden SSH ports

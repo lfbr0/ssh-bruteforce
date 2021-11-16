@@ -8,6 +8,7 @@ import com.github.lfbr0.ssh_bruteforce.ssh.BruteForcer;
 import org.apache.commons.cli.ParseException;
 
 import java.io.IOException;
+import java.nio.charset.MalformedInputException;
 import java.util.Optional;
 
 public class App {
@@ -30,6 +31,7 @@ public class App {
 
             //Get stream of passwords from dictionary and bruteforce it
             Optional<String> sshPass = argsParser.getDictionaryStream()
+                    .parallel() //to speed up process
                     .peek(pass -> {
                         if (argsParser.verboseMode())
                             System.out.println("PASSWORD BEING ATTEMPTED: " + pass);
@@ -42,7 +44,7 @@ public class App {
                             return false;
                         }
                     })
-                    .findFirst();
+                    .findAny();
 
             if (sshPass.isPresent())
                 System.out.printf(
@@ -58,6 +60,8 @@ public class App {
         }
         catch (ParseException e) {
             System.out.println("ERROR PARSING ARGUMENTS PASSED");
+        } catch (MalformedInputException e) {
+            System.out.println("ERROR CHECK IF ENCONDING IS UTF-8");
         } catch (IOException e) {
             System.out.println("ERROR LOADING DICTIONARY FILE");
         } catch (ArgumentsException e) {
