@@ -32,3 +32,11 @@ To prove the authentication details using PuTTY tools:
 Using the application we can bruteforce with dictionary attack:
 
 ![Example run](screenshots/proof_ssh.JPG)
+
+## TODO
+To be done:
+- [ ] Multithreaded to run quicker
+- [ ] Variable timeout
+- [ ] Dictionary attack on username
+- [ ] Attack several ports for hidden SSH ports
+
