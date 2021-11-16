@@ -39,4 +39,4 @@ To be done:
 - [ ] Variable timeout
 - [ ] Dictionary attack on username
 - [ ] Attack several ports for hidden SSH ports
-
+- [ ] Log instead of printing to stdout
