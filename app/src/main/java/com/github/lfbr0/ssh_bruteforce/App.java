@@ -10,8 +10,11 @@ import org.apache.commons.cli.ParseException;
 import java.io.IOException;
 import java.nio.charset.MalformedInputException;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class App {
+
+    static final int FATAL_ERROR = -1;
 
     /**
      * Main entry point of application.
@@ -20,7 +23,6 @@ public class App {
      */
     public static void main(String[] args) {
 
-        //TODO -> log instead of stdout using Log4j
         try {
 
             //Try parsing arguments passed
@@ -29,18 +31,23 @@ public class App {
             //Create bruteforcer
             BruteForcer bruteforce = new BruteForcer(argsParser);
 
+            //Atomic counter for status
+            AtomicInteger attempts = new AtomicInteger(0);
+
             //Get stream of passwords from dictionary and bruteforce it
             Optional<String> sshPass = argsParser.getDictionaryStream()
                     .parallel() //to speed up process
                     .peek(pass -> {
                         if (argsParser.verboseMode())
-                            System.out.println("PASSWORD BEING ATTEMPTED: " + pass);
+                            System.out.println("ATTEMPT " + attempts + " -> PASSWORD BEING ATTEMPTED: " + pass);
                     }) //debug
                     .filter(pass -> {
                         try {
+                            attempts.incrementAndGet(); //increase count
                             return bruteforce.attempt(pass);
                         } catch (ArgumentsException e) {
-                            System.out.println("ERROR IN ARGUMENT");
+                            System.out.println("FATAL ERROR : " + e.getMessage());
+                            System.exit(FATAL_ERROR);
                             return false;
                         }
                     })

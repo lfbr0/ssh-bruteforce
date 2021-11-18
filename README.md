@@ -7,10 +7,10 @@ The project can be built using Gradle and has a task to make a fat jar.
 To make it just use: ```./gradlew shadowjar```. It will be available in the build\libs folder.
 
 The application accepts the following arguments:
-- -ip $IP_ADDR
-- -port $SSH_PORT
-- -user $USER_NAME_TO_TRY
-- -dict $FILE_PATH_OF_PASSWORDS_DICTIONARY
+- --ip $IP_ADDR
+- --port $SSH_PORT
+- --user $USER_NAME_TO_TRY
+- --dict $FILE_PATH_OF_PASSWORDS_DICTIONARY
 - -v [verbose option to print passwords being tested, no arg]
 
 **All arguments are required except for the verbose flag.**

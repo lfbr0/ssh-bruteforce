@@ -23,10 +23,10 @@ public class ArgumentsParser {
 
     /**
      * valid args:
-     * -ip $IP_ADDR
-     * -port $SSH_PORT
-     * -user $USER_NAME_TO_TRY
-     * -dict $FILE_PATH_OF_PASSWORDS_DICTIONARY
+     * --ip $IP_ADDR
+     * --port $SSH_PORT
+     * --user $USER_NAME_TO_TRY
+     * --dict $FILE_PATH_OF_PASSWORDS_DICTIONARY
      * -v [verbose option to print passwords being tested, no arg]
      * @param args -> args passed by array of command line env
      * @throws ParseException -> if can't parse one arg
@@ -34,10 +34,10 @@ public class ArgumentsParser {
     public ArgumentsParser(String[] args) throws ParseException {
 
         options = new Options();
-        options.addOption("ip", true, "IP address to try");
-        options.addOption("port", true, "Port for SSH attempt");
-        options.addOption("dict", true, "Dictionary file");
-        options.addOption("user", true, "User to try and use");
+        options.addOption("-ip", true, "IP address to try");
+        options.addOption("-port", true, "Port for SSH attempt");
+        options.addOption("-dict", true, "Dictionary file");
+        options.addOption("-user", true, "User to try and use");
         options.addOption("v", false, "Verbose option to print passwords being tested, no arg");
 
         DefaultParser parser = new DefaultParser();
@@ -50,21 +50,21 @@ public class ArgumentsParser {
      * @return optional wrapper of the target IP address
      */
     public Optional<String> getIPAddress() {
-        return Optional.ofNullable( commandLine.getOptionValue("ip") );
+        return Optional.ofNullable( commandLine.getOptionValue("-ip") );
     }
 
     /**
      * Returns an optional wrapper of the target port
      * @return optional wrapper of the target port
      */
-    public Optional<String> getPort() { return Optional.ofNullable( commandLine.getOptionValue("port") ); }
+    public Optional<String> getPort() { return Optional.ofNullable( commandLine.getOptionValue("-port") ); }
 
     /**
      * Returns an optional wrapper of the dictionary path
      * @return optional wrapper of the dictionary path
      */
     public Optional<String> getDictionaryFilePath() {
-        return Optional.ofNullable( commandLine.getOptionValue("dict") );
+        return Optional.ofNullable( commandLine.getOptionValue("-dict") );
     }
 
     /**
@@ -72,7 +72,7 @@ public class ArgumentsParser {
      * @return optional wrapper of the target username
      */
     public Optional<String> getUsername() {
-        return Optional.ofNullable( commandLine.getOptionValue("user") );
+        return Optional.ofNullable( commandLine.getOptionValue("-user") );
     }
 
     /**
