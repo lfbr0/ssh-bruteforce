@@ -80,7 +80,7 @@ public class ArgumentsParser {
      * @return a stream of passwords (if they're seperated by \n)
      * @throws IOException if file can't be opened
      * @throws ArgumentsException if arguments are invalid
-     */
+     */ //TODO -> fix encoding doom error here
     public Stream<String> getDictionaryStream() throws IOException, ArgumentsException {
         return Files.lines(
                 Path.of(
