@@ -19,7 +19,7 @@ public class BruteForcer {
     private final Optional<String> username; //target user
     private Optional<Session> session; //session wrapper
 
-    private final int TIMEOUT_MS = 30000; //timeout value in MS to avoid being booted out
+    private final int TIMEOUT_MS = 300; //timeout value in MS to avoid being booted out
 
     public BruteForcer(ArgumentsParser argsParser) {
 
