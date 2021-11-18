@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class App {
 
+    static final int SUCCESS = 0;
     static final int FATAL_ERROR = -1;
 
     /**
@@ -28,42 +29,41 @@ public class App {
             //Try parsing arguments passed
             ArgumentsParser argsParser = new ArgumentsParser(args);
 
-            //Create bruteforcer
-            BruteForcer bruteforce = new BruteForcer(argsParser);
-
             //Atomic counter for status
             AtomicInteger attempts = new AtomicInteger(0);
 
             //Get stream of passwords from dictionary and bruteforce it
-            Optional<String> sshPass = argsParser.getDictionaryStream()
+            argsParser.getDictionaryStream()
                     .parallel() //to speed up process
-                    .peek(pass -> {
+                    .forEach(possiblePass -> {
+                        //if verbose print
                         if (argsParser.verboseMode())
-                            System.out.println("ATTEMPT " + attempts + " -> PASSWORD BEING ATTEMPTED: " + pass);
-                    }) //debug
-                    .filter(pass -> {
+                            System.out.println(
+                                    "ATTEMPT " + attempts.getAndIncrement()
+                                            + " -> PASSWORD BEING ATTEMPTED: " + possiblePass
+                            );
                         try {
-                            attempts.incrementAndGet(); //increase count
-                            return bruteforce.attempt(pass);
+                            //check if pass
+                            boolean isPass = new BruteForcer(argsParser).attempt(possiblePass);
+                            //if pass, print it out and exit
+                            if (isPass) {
+                                System.out.printf(
+                                        "POSSIBLE PASSWORD FOR %s@%s -> %s\n",
+                                        argsParser.getUsername().get(),
+                                        argsParser.getIPAddress().get(),
+                                        possiblePass
+                                );
+                                System.exit(SUCCESS);
+                            }
                         } catch (ArgumentsException e) {
                             System.out.println("FATAL ERROR : " + e.getMessage());
                             System.exit(FATAL_ERROR);
-                            return false;
                         }
-                    })
-                    .findAny();
+                    });
 
-            if (sshPass.isPresent())
-                System.out.printf(
-                        "PASSWORD FOR FOUND FOR %s@%s -> %s",
-                        argsParser.getUsername().get(),
-                        argsParser.getIPAddress().get(),
-                        sshPass.get()
-                );
-            else
-                System.out.println( "NO PASSWORD FOUND IN DICTIONARY" );
+            //No password has been found
+            System.out.println( "NO PASSWORD FOUND IN DICTIONARY" );
 
-            return;
         }
         catch (ParseException e) {
             System.out.println("ERROR PARSING ARGUMENTS PASSED");
@@ -75,6 +75,7 @@ public class App {
             System.out.println(e.getMessage());
         }
 
+        return;
     }
 
 }
