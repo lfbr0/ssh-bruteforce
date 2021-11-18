@@ -29,7 +29,7 @@ To prove the authentication details using PuTTY tools:
 
 ![Proving SSH auth details](screenshots/proof_account.JPG)
 
-Using the application we can bruteforce with dictionary attack:
+Using the application we can bruteforce with dictionary attack (please note the ```-target``` argument has, in newer builds, been replaced with ```-ip``` for simplicity):
 
 ![Example run](screenshots/proof_ssh.JPG)
 
