@@ -23,7 +23,7 @@ public class ArgumentsParser {
 
     /**
      * valid args:
-     * -target $IP_ADDR
+     * -ip $IP_ADDR
      * -port $SSH_PORT
      * -user $USER_NAME_TO_TRY
      * -dict $FILE_PATH_OF_PASSWORDS_DICTIONARY
@@ -34,7 +34,7 @@ public class ArgumentsParser {
     public ArgumentsParser(String[] args) throws ParseException {
 
         options = new Options();
-        options.addOption("target", true, "IP address to try");
+        options.addOption("ip", true, "IP address to try");
         options.addOption("port", true, "Port for SSH attempt");
         options.addOption("dict", true, "Dictionary file");
         options.addOption("user", true, "User to try and use");
@@ -50,7 +50,7 @@ public class ArgumentsParser {
      * @return optional wrapper of the target IP address
      */
     public Optional<String> getIPAddress() {
-        return Optional.ofNullable( commandLine.getOptionValue("target") );
+        return Optional.ofNullable( commandLine.getOptionValue("ip") );
     }
 
     /**
