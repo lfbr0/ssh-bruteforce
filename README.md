@@ -6,11 +6,11 @@ An SSH Bruteforcer using Java, Apache Commons CLI and JCSH.
 The project can be built using Gradle and has a task to make a fat jar.
 To make it just use: ```./gradlew shadowjar```. It will be available in the app\build\libs folder.
 
-The application accepts the following arguments:
-- -ip $IP_ADDR
-- -port $SSH_PORT
-- -user $USER_NAME_TO_TRY
-- -dict $FILE_PATH_OF_PASSWORDS_DICTIONARY
+To run use ```java -jar ssh-bruteforce.jar <ARGUMENTS>``` or use gradle to run it. Both ways **MUST** follow the following argument rules:
+- -ip $IP_ADDR [obligatory]
+- -port $SSH_PORT [obligatory]
+- -user $USER_NAME_TO_TRY [obligatory]
+- -dict $FILE_PATH_OF_PASSWORDS_DICTIONARY [obligatory]
 - -v [verbose option to print passwords being tested, no arg]
 
 **All arguments are required except for the verbose flag.**
