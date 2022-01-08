@@ -4,7 +4,7 @@ An SSH Bruteforcer using Java, Apache Commons CLI and JCSH.
 ## Running
 
 The project can be built using Gradle and has a task to make a fat jar.
-To make it just use: ```./gradlew shadowjar```. It will be available in the build\libs folder.
+To make it just use: ```./gradlew shadowjar```. It will be available in the app\build\libs folder.
 
 The application accepts the following arguments:
 - -ip $IP_ADDR
